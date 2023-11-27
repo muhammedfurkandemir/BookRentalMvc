@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookRentalApp.Models
 {
@@ -7,7 +8,9 @@ namespace BookRentalApp.Models
         [Key] //primary key
         public int Id { get; set; }
 
-        [Required] //not null
+        [Required(ErrorMessage ="Kitap tür adı boş bırakılamaz!")] //not null
+        [MaxLength(30)]
+        [DisplayName("Kitap Türü Adı")]
         public string Name { get; set; }
     }
 }
