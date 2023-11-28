@@ -6,15 +6,15 @@ namespace BookRentalApp.Controllers
 {
     public class BookTypeController : Controller
     {
-        private readonly RentalBookContext _rentalBookContext;
+        private IBookTypeRepository _bookTypeRepository;
 
-        public BookTypeController(RentalBookContext context)
+        public BookTypeController(IBookTypeRepository bookTypeRepository)
         {
-            _rentalBookContext = context;
+            _bookTypeRepository = bookTypeRepository;
         }
         public IActionResult Index()
         {
-            List<BookType> bookTypes= _rentalBookContext.BookTypes.ToList();
+            List<BookType> bookTypes= _bookTypeRepository.GetAll().ToList();
             return View(bookTypes);
         }
         public IActionResult Add()
@@ -27,8 +27,8 @@ namespace BookRentalApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _rentalBookContext.BookTypes.Add(bookType);
-                _rentalBookContext.SaveChanges();
+                _bookTypeRepository.Add(bookType);
+                _bookTypeRepository.Save();
                 TempData["Success"] ="Yeni Kayıt Türü Başarıyla Oluşturuldu!";
                 return RedirectToAction("Index", "BookType");
             }
@@ -41,7 +41,7 @@ namespace BookRentalApp.Controllers
             {
                 return NotFound();
             }
-            BookType? bookType=_rentalBookContext.BookTypes.Find(id);
+            BookType? bookType = _bookTypeRepository.Get(b => b.Id == id);
             if (bookType==null)
             {
                 return NotFound();
@@ -54,8 +54,8 @@ namespace BookRentalApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _rentalBookContext.BookTypes.Update(bookType);
-                _rentalBookContext.SaveChanges();
+                _bookTypeRepository.Update(bookType);
+                _bookTypeRepository.Save();
                 TempData["Success"] ="Kayıt Türü Başarıyla Güncellendi!";
                 return RedirectToAction("Index", "BookType");
             }
@@ -67,7 +67,7 @@ namespace BookRentalApp.Controllers
             {
                 return NotFound();
             }
-            BookType? bookType = _rentalBookContext.BookTypes.Find(id);
+            BookType? bookType = _bookTypeRepository.Get(b => b.Id == id);
             if (bookType == null)
             {
                 return NotFound();
@@ -82,8 +82,8 @@ namespace BookRentalApp.Controllers
             {
                 return NotFound();
             }
-            _rentalBookContext.BookTypes.Remove(bookType);
-            _rentalBookContext.SaveChanges();
+            _bookTypeRepository.Delete(bookType);
+            _bookTypeRepository.Save();
             TempData["Success"] = "Kayıt Türü Başarıyla Silindi!";
             return RedirectToAction("Index", "BookType");
         }

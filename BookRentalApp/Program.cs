@@ -1,3 +1,4 @@
+using BookRentalApp.Models;
 using BookRentalApp.Utility;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,8 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//Veritabanı için RentalBookContext classının istenilen yerde new lenelerek dependency injection ile .net core yapısında verilmesilmesini sağlar.
 builder.Services.AddDbContext<RentalBookContext>(options=>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//istediğimiz yapının dependency injection ile newlenmesi için kullanılır.
+builder.Services.AddScoped<IBookTypeRepository, BookTypeRepository>();
 
 var app = builder.Build();
 
