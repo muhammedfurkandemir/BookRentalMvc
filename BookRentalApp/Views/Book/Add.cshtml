@@ -1,0 +1,58 @@
+﻿@model Book
+
+<form method="post" enctype="multipart/form-data">
+    <div class="border p-3 mt-5">
+        <div class="row pb-3">
+            <h2 class="text-primary">Kitap Ekle</h2>
+            <hr>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="BookName" class="p-0"></label>
+            <input asp-for="BookName" class="form-control" />
+            <span asp-validation-for="BookName" class="text-primary"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="BookTypeId" class="p-0"></label>
+            <select asp-for="BookTypeId" asp-items="ViewBag.BookTypes" class="form-select">
+                <option value="" disabled selected hidden>Lütfen Kitap Türü Seçiniz</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Writer" class="p-0"></label>
+            <input asp-for="Writer" class="form-control" />
+            <span asp-validation-for="Writer" class="text-primary"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Contributor" class="p-0"></label>
+            <input asp-for="Contributor" class="form-control" />
+            <span asp-validation-for="Contributor" class="text-primary"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description" class="p-0"></label>
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description" class="text-primary"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Price" class="p-0"></label>
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-primary"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ImageUrl" class="p-0"></label>
+            <input type="file" name="file" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:250px">Ekle</button>
+
+        <a asp-controller="Book" asp-action="Index" class="btn btn-primary" style="width:250px">Geri Dön</a>
+
+    </div>
+
+</form>
+
+@* @section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"/>
+    }
+} *@

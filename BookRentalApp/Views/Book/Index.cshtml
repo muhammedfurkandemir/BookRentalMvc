@@ -1,0 +1,58 @@
+﻿@model List<BookDetailDto>
+
+
+@*Temp data yapısı ile controller ve view arasında veri taşınır.*@
+    <div class="container">
+        <div class="row pt-3 pb-4">
+        <h1>Kitap İşlemleri</h1>
+        </div>
+    </div>
+    <div>
+<table class ="table table-bordered">
+    <thead >
+        <tr>
+            <th>Id</th>
+            <th>Kitap Adı</th>
+            <th >Kitap Türü</th>
+            <th>Yazar</th>
+            <th>Yayınlayan</th>
+            <th>Açıklama</th>
+            <th>Fiyat</th>
+            <th style="width:150px"></th>
+            <th style="width:150px"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var book in Model)
+        {
+            <tr>
+                <td>@book.Id</td>
+                <td>@book.BookName</td>
+                <td >@book.BookTypeName</td>
+                <td>@book.Writer</td>
+                <td>@book.Contributor</td>
+                <td>@book.Description</td>
+                <td>@book.Price</td>
+                <td><a asp-controller="Book" asp-action="Update" asp-route-id="@book.Id" type="button" class="btn btn-info" style="width:150px">Güncelle</a></td>
+                <td><a asp-controller="Book" asp-action="Delete" asp-route-id="@book.Id" type="button" class="btn btn-danger" style="width:150px">Sil</a></td>
+            </tr>
+        }
+        
+    </tbody>
+</table>
+
+         @if (TempData["Success"] != null)
+        {
+        <div>
+        <h4 class="text-info">@TempData["Success"]</h4>
+        </div>
+        }
+        <div class="row pt-3 pb-2">
+            
+        <a asp-controller="Book" asp-action="Add" type="button" class="btn btn-primary col-md-5">
+            Yeni Kitap Oluştur
+        </a>
+        </div>
+
+
+</div>

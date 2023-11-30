@@ -1,4 +1,5 @@
 using BookRentalApp.Models;
+using BookRentalApp.Utilities.Helpers.FileHelper;
 using BookRentalApp.Utility;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,10 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 
 //istediğimiz yapının dependency injection ile newlenmesi için kullanılır.
 builder.Services.AddScoped<IBookTypeRepository, BookTypeRepository>();
+
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+
+builder.Services.AddScoped<IFileHelper,FileHelper>();
 
 var app = builder.Build();
 

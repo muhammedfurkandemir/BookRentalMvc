@@ -3,6 +3,7 @@ using BookRentalApp.Utility;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookRentalApp.Migrations
 {
     [DbContext(typeof(RentalBookContext))]
-    partial class RentalBookContextModelSnapshot : ModelSnapshot
+    [Migration("20231130145641_remake-database")]
+    partial class remakedatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,27 +83,6 @@ namespace BookRentalApp.Migrations
                     b.ToTable("BookTypes");
                 });
 
-            modelBuilder.Entity("BookRentalApp.Models.Rental", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("Rentals");
-                });
-
             modelBuilder.Entity("BookRentalApp.Models.Book", b =>
                 {
                     b.HasOne("BookRentalApp.Models.BookType", "BookType")
@@ -110,17 +92,6 @@ namespace BookRentalApp.Migrations
                         .IsRequired();
 
                     b.Navigation("BookType");
-                });
-
-            modelBuilder.Entity("BookRentalApp.Models.Rental", b =>
-                {
-                    b.HasOne("BookRentalApp.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
                 });
 #pragma warning restore 612, 618
         }
