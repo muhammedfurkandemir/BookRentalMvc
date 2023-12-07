@@ -11,6 +11,20 @@ namespace BookRentalApp.Models
             _rentalBookContext = rentalBookContext;
         }
 
+        public List<RentalDetailDto> GetRentalDetails()
+        {
+            var result = from rental in _rentalBookContext.Rentals
+                         join book in _rentalBookContext.Books
+                         on rental.BookId equals book.Id
+                         select new RentalDetailDto
+                         {
+                             Id = rental.Id,
+                             BookName = book.BookName,
+                             StudentId = rental.StudentId,
+                         };
+            return result.ToList();
+        }
+
         public void Save()
         {
             _rentalBookContext.SaveChanges();

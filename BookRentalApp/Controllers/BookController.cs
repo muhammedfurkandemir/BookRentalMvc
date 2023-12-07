@@ -10,7 +10,7 @@ namespace BookRentalApp.Controllers
     {
         private IBookRepository _bookRepository;
         private IBookTypeRepository _bookTypeRepository;
-        private IWebHostEnvironment _webHostEnvironment;
+        private IWebHostEnvironment _webHostEnvironment;//bu sınıf üzerinden wwwroot alanına erişiriz ve sistem bu sınıfı otomatik constructor a gönderir.
         private IFileHelper _fileHelper;
 
         public BookController(IBookRepository bookRepository,IBookTypeRepository bookTypeRepository,

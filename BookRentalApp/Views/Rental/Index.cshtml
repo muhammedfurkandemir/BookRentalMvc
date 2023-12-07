@@ -1,0 +1,49 @@
+﻿@model List<RentalDetailDto>
+
+
+@*Temp data yapısı ile controller ve view arasında veri taşınır.*@
+    <div class="container">
+        <div class="row pt-3 pb-4">
+        <h1>Kiralama İşlemleri</h1>
+        </div>
+    </div>
+    <div>
+<table class ="table table-bordered">
+    <thead >
+        <tr>
+            <th>Id</th>
+            <th>Student Id</th>
+            <th >Kitap Adı</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var rental in Model)
+        {
+            <tr>
+                <td>@rental.Id</td>
+                <td>@rental.StudentId</td>
+                <td >@rental.BookName</td>
+                <td><a asp-controller="Rental" asp-action="Update" asp-route-id="@rental.Id" type="button" class="btn btn-info" style="width:150px">Güncelle</a></td>
+                <td><a asp-controller="Rental" asp-action="Delete" asp-route-id="@rental.Id" type="button" class="btn btn-danger" style="width:150px">Sil</a></td>
+            </tr>
+        }
+        
+    </tbody>
+</table>
+
+         @if (TempData["Success"] != null)
+        {
+        <div>
+        <h4 class="text-info">@TempData["Success"]</h4>
+        </div>
+        }
+        <div class="row pt-3 pb-2">
+            
+        <a asp-controller="Rental" asp-action="Add" type="button" class="btn btn-primary col-md-5">
+            Yeni Kiralama Oluştur
+        </a>
+        </div>
+
+
+</div>

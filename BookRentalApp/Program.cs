@@ -2,6 +2,7 @@ using BookRentalApp.Models;
 using BookRentalApp.Utilities.Helpers.FileHelper;
 using BookRentalApp.Utility;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,12 +13,17 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<RentalBookContext>(options=>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<RentalBookContext>();
+
+builder.Services.AddRazorPages();
 //istediğimiz yapının dependency injection ile newlenmesi için kullanılır.
 builder.Services.AddScoped<IBookTypeRepository, BookTypeRepository>();
 
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 builder.Services.AddScoped<IFileHelper,FileHelper>();
+
+builder.Services.AddScoped<IRentalRepository, RentalRepository>();
 
 var app = builder.Build();
 
@@ -36,6 +42,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",

@@ -13,7 +13,6 @@ namespace BookRentalApp.Models
         public int StudentId { get; set; }
 
         [ValidateNever]
-        [Required]
         public int BookId { get; set; }
         [ForeignKey("BookId")]
         [ValidateNever]
