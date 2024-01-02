@@ -25,7 +25,8 @@ namespace BookRentalApp.Controllers
         public IActionResult Index()
         {
             List<BookDetailDto> bookDetails=_bookRepository.GetBookDetails();
-            
+            string wwwRootPath = _webHostEnvironment.WebRootPath;
+            Console.WriteLine(wwwRootPath+"ben yazdım");
             return View(bookDetails);
         }
 
